@@ -1,0 +1,9 @@
+{
+  "token": "Jeton API",
+  "model": "Modèle",
+  "context": "Contexte",
+  "instructions": "Instructions",
+  "num_ctx": "Nombre maximum de jetons",
+  "max_messages_ctx": "Nombre de messages",
+  "temperature": "Température"
+}

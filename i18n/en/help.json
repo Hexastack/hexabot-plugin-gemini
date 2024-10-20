@@ -1,0 +1,9 @@
+{
+  "token": "Enter your Gemini API token for authentication.",
+  "model": "Specify the Gemini model to use for processing requests.",
+  "context": "Provide context information that will persist across interactions.",
+  "instructions": "Describe any specific instructions for the model to follow.",
+  "num_ctx": "Set the maximum number of tokens to consider for the context.",
+  "max_messages_ctx": "Define the maximum number of previous messages to include in the context.",
+  "temperature": "Adjust the temperature parameter to control the randomness of the model's responses."
+}
