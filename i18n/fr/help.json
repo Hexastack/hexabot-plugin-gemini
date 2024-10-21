@@ -1,0 +1,9 @@
+{
+  "token": "Entrez le jeton Gemini API utilisé pour l'authentification.",
+  "model": "Choisissez le modèle Gemini d'intelligence artificielle à utiliser.",
+  "context": "Définissez le contexte initial à utiliser pour les réponses du modèle.",
+  "instructions": "Indiquez les instructions spécifiques à suivre par le modèle.",
+  "num_ctx": "Spécifiez le nombre maximal de jetons que le contexte peut contenir.",
+  "max_messages_ctx": "Déterminez le nombre de messages récents à inclure dans le contexte.",
+  "temperature": "Ajustez la température pour contrôler la variabilité des réponses."
+}
