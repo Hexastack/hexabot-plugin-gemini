@@ -1,5 +1,5 @@
 {
-  "name": "hexabot-channel-messenger",
+  "name": "hexabot-plugin-gemini",
   "version": "2.0.1",
   "description": "The Google Gemini Plugin for Hexabot Chatbot / Agent Builder to enable the LLM RAG Capability",
   "dependencies": {
