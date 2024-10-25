@@ -3,7 +3,17 @@
   "model": "Choisissez le modèle Gemini d'intelligence artificielle à utiliser.",
   "context": "Définissez le contexte initial à utiliser pour les réponses du modèle.",
   "instructions": "Indiquez les instructions spécifiques à suivre par le modèle.",
-  "num_ctx": "Spécifiez le nombre maximal de jetons que le contexte peut contenir.",
   "max_messages_ctx": "Déterminez le nombre de messages récents à inclure dans le contexte.",
-  "temperature": "Ajustez la température pour contrôler la variabilité des réponses."
+  "candidate_count": "Spécifie le nombre de réponses générées à renvoyer. Actuellement, cette valeur ne peut être définie qu'à 1.",
+  "max_output_tokens": "Définit le nombre maximum de tokens à inclure dans une réponse candidate.",
+  "temperature": "La température contrôle le degré d'aléatoire dans la sélection des tokens. Elle est utilisée pour l'échantillonnage lors de la génération de la réponse, en combinaison avec topP et topK. Des températures plus basses sont recommandées pour des prompts nécessitant une réponse plus déterministe ou moins ouverte, tandis que des températures plus élevées peuvent mener à des résultats plus variés ou créatifs. Une température de 0 est déterministe, ce qui signifie que la réponse la plus probable est toujours sélectionnée.",
+  "top_k": "Le paramètre topK modifie la manière dont le modèle sélectionne les tokens pour l'output. Un topK de 1 signifie que le token sélectionné est le plus probable parmi tous ceux du vocabulaire du modèle (décodage glouton), tandis qu'un topK de 3 signifie que le prochain token est sélectionné parmi les 3 plus probables en utilisant la température.",
+  "top_p": "Le paramètre topP modifie la manière dont le modèle sélectionne les tokens pour l'output. Les tokens sont sélectionnés du plus au moins probable jusqu'à ce que la somme de leurs probabilités atteigne la valeur topP.",
+  "stop_sequences": "Spécifie l'ensemble des séquences de caractères qui arrêteront la génération de l'output. La séquence d'arrêt ne sera pas incluse dans la réponse.",
+  "response_mime_type": "Type MIME de la réponse générée. Les types MIME pris en charge sont 'text/plain' et 'application/json'.",
+  "response_schema": "Schéma de réponse du texte candidat généré. Cela s'applique uniquement lorsque le type MIME de la réponse spécifié prend en charge un schéma (actuellement limité à 'application/json').",
+  "presence_penalty": "Pénalité de présence appliquée aux logprobs du prochain token si celui-ci a déjà été vu dans la réponse.",
+  "frequency_penalty": "Pénalité de fréquence appliquée aux logprobs du prochain token, multipliée par le nombre de fois que chaque token a été vu dans la réponse jusqu'à présent.",
+  "response_logprobs": "Si défini sur True, exporte les résultats de logprobs dans la réponse.",
+  "logprobs": "Définit le nombre de logprobs les plus élevés à renvoyer à chaque étape de décodage dans le résultat des logprobs (valide si response_logprobs est défini sur True)."
 }

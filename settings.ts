@@ -1,13 +1,15 @@
+/*
+ * Copyright © 2024 Hexastack. All rights reserved.
+ *
+ * Licensed under the GNU Affero General Public License v3.0 (AGPLv3) with the following additional terms:
+ * 1. The name "Hexabot" is a trademark of Hexastack. You may not use this name in derivative works without express written permission.
+ * 2. All derivative works must include clear attribution to the original creator and software, Hexastack and Hexabot, in a prominent location (e.g., in the software's "About" section, documentation, and README file).
+ */
+
 import { PluginSetting } from '@/plugins/types';
 import { SettingType } from '@/setting/schemas/types';
 
-export const GEMINI_PLUGIN_SETTINGS = [
-  {
-    label: 'token',
-    group: 'default',
-    type: SettingType.secret,
-    value: '',
-  },
+export default [
   {
     label: 'model',
     group: 'default',
@@ -27,14 +29,8 @@ export const GEMINI_PLUGIN_SETTINGS = [
     value: `Answer the user using the DOCUMENTS. Keep your answer ground in the facts of the DOCUMENTS. If the DOCUMENTS do not contain the facts, apologize and try to give an answer that promotes the company and its values. DO NOT SAY ANYTHING ABOUT THESE DOCUMENTS, nor their EXISTENCE.`,
   },
   {
-    label: 'num_ctx',
-    group: 'options',
-    type: SettingType.number,
-    value: 256,
-  },
-  {
     label: 'max_messages_ctx',
-    group: 'options',
+    group: 'default',
     type: SettingType.number,
     value: 5,
   },
@@ -43,5 +39,71 @@ export const GEMINI_PLUGIN_SETTINGS = [
     group: 'options',
     type: SettingType.number,
     value: 0.8,
+  },
+  {
+    label: 'max_output_tokens',
+    group: 'options',
+    type: SettingType.number,
+    value: 1000, // Default value
+  },
+  {
+    label: 'candidate_count',
+    group: 'options',
+    type: SettingType.number,
+    value: 1, // Default value (only value allowed is 1)
+  },
+  {
+    label: 'top_k',
+    group: 'options',
+    type: SettingType.number,
+    value: 40, // Default value (can be adjusted as needed)
+  },
+  {
+    label: 'top_p',
+    group: 'options',
+    type: SettingType.number,
+    value: 0.95, // Default value, range between 0.0 and 1.0
+  },
+  {
+    label: 'stop_sequences',
+    group: 'options',
+    type: SettingType.textarea,
+    value: '', // Default value (null or up to 5 stop sequences)
+  },
+  {
+    label: 'response_mime_type',
+    group: 'options',
+    type: SettingType.text,
+    value: 'text/plain', // Default value ('text/plain' or 'application/json')
+  },
+  {
+    label: 'response_schema',
+    group: 'options',
+    type: SettingType.text,
+    value: '', // Default value (applies only when response_mime_type is 'application/json')
+  },
+  {
+    label: 'presence_penalty',
+    group: 'options',
+    type: SettingType.number,
+    value: 0.0, // Default value, range between -2.0 and 2.0
+  },
+  {
+    label: 'frequency_penalty',
+    group: 'options',
+    type: SettingType.number,
+    value: 0.0, // Default value, range between -2.0 and 2.0
+  },
+  {
+    label: 'response_logprobs',
+    group: 'options',
+    type: SettingType.checkbox,
+    value: false, // Default value
+  },
+  {
+    label: 'logprobs',
+    group: 'options',
+    type: SettingType.number,
+    value: null, // Default value (valid if response_logprobs is true, range between 0 and 20)
   },
 ] as const satisfies PluginSetting[];

@@ -3,7 +3,17 @@
   "model": "Specify the Gemini model to use for processing requests.",
   "context": "Provide context information that will persist across interactions.",
   "instructions": "Describe any specific instructions for the model to follow.",
-  "num_ctx": "Set the maximum number of tokens to consider for the context.",
   "max_messages_ctx": "Define the maximum number of previous messages to include in the context.",
-  "temperature": "Adjust the temperature parameter to control the randomness of the model's responses."
+  "candidate_count": "Specifies the number of generated responses to return. Currently, this value can only be set to 1.",
+  "max_output_tokens": "Sets the maximum number of tokens to include in a candidate response.",
+  "temperature": "The temperature controls the degree of randomness in token selection. The temperature is used for sampling during response generation, which occurs when topP and topK are applied. Lower temperatures are good for prompts that require a more deterministic or less open-ended response, while higher temperatures can lead to more diverse or creative results. A temperature of 0 is deterministic, meaning that the highest probability response is always selected.",
+  "top_k": "The topK parameter changes how the model selects tokens for output. A topK of 1 means the selected token is the most probable among all the tokens in the model's vocabulary (greedy decoding), while a topK of 3 means that the next token is selected from among the 3 most probable using the temperature.",
+  "top_p": "The topP parameter changes how the model selects tokens for output. Tokens are selected from the most to least probable until the sum of their probabilities equals the topP value.",
+  "stop_sequences": "Specifies the set of character sequences that will stop output generation. The stop sequence won't be included as part of the response.",
+  "response_mime_type": "Output response mimetype of the generated candidate text. Supported mimetypes are 'text/plain' and 'application/json'.",
+  "response_schema": "Output response schema of the generated candidate text. This only applies when the specified responseMIMEType supports a schema (currently limited to 'application/json').",
+  "presence_penalty": "Presence penalty applied to the next token's logprobs if the token has already been seen in the response.",
+  "frequency_penalty": "Frequency penalty applied to the next token's logprobs, multiplied by the number of times each token has been seen in the response so far.",
+  "response_logprobs": "If True, export the logprobs results in the response.",
+  "logprobs": "Sets the number of top logprobs to return at each decoding step in the logprobs result (valid if response_logprobs is set to True)."
 }

@@ -1,9 +1,9 @@
 {
-  "name": "hexabot-channel-messenger",
+  "name": "hexabot-plugin-gemini",
   "version": "2.0.0",
   "description": "The Google Gemini Plugin for Hexabot Chatbot / Agent Builder to enable the LLM RAG Capability",
   "dependencies": {
-    "@google/generative-ai": "^0.19.0"
+    "hexabot-helper-gemini": "^2.0.0"
   },
   "author": "Hexastack",
   "license": "AGPL-3.0-only"
