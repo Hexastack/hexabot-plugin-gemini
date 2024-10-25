@@ -1,4 +1,11 @@
-import { Content, GoogleGenerativeAI } from '@google/generative-ai'; // Importing Google Generative AI
+/*
+ * Copyright © 2024 Hexastack. All rights reserved.
+ *
+ * Licensed under the GNU Affero General Public License v3.0 (AGPLv3) with the following additional terms:
+ * 1. The name "Hexabot" is a trademark of Hexastack. You may not use this name in derivative works without express written permission.
+ * 2. All derivative works must include clear attribution to the original creator and software, Hexastack and Hexabot, in a prominent location (e.g., in the software's "About" section, documentation, and README file).
+ */
+
 import { Injectable } from '@nestjs/common';
 
 import { Block } from '@/chat/schemas/block.schema';
@@ -9,119 +16,74 @@ import {
 } from '@/chat/schemas/types/message';
 import { MessageService } from '@/chat/services/message.service';
 import { ContentService } from '@/cms/services/content.service';
+import GeminiLlmHelper from '@/extensions/helpers/hexabot-helper-gemini/index.helper';
+import { HelperService } from '@/helper/helper.service';
+import { HelperType } from '@/helper/types';
 import { LoggerService } from '@/logger/logger.service';
 import { BaseBlockPlugin } from '@/plugins/base-block-plugin';
 import { PluginService } from '@/plugins/plugins.service';
+import { PluginBlockTemplate } from '@/plugins/types';
 
-import { GEMINI_PLUGIN_SETTINGS } from './settings';
+import GEMINI_PLUGIN_SETTINGS from './settings';
 
 @Injectable()
 export class GeminiPlugin extends BaseBlockPlugin<
   typeof GEMINI_PLUGIN_SETTINGS
 > {
-  private generativeAI: GoogleGenerativeAI;
+  template: PluginBlockTemplate = { name: 'Gemini RAG Block' };
 
   constructor(
     pluginService: PluginService,
     private logger: LoggerService,
     private contentService: ContentService,
     private messageService: MessageService,
+    private helperService: HelperService,
   ) {
-    super('gemini', GEMINI_PLUGIN_SETTINGS, pluginService);
-
-    this.template = { name: 'Gemini RAG Block' };
-
-    this.effects = {};
+    super('gemini-plugin', pluginService);
   }
 
-  private async getMessagesContext(
-    context: Context,
-    maxMessagesCtx = 5,
-  ): Promise<Content[]> {
-    // Retrieve the last few messages for context
-    const recentMessages = await this.messageService.findLastMessages(
-      context.user,
-      maxMessagesCtx,
+  getPath(): string {
+    return __dirname;
+  }
+
+  async process(block: Block, ctx: Context, _convId: string) {
+    const ragContent = await this.contentService.textSearch(ctx.text);
+    const { model, instructions, context, max_messages_ctx, ...options } =
+      this.getArguments(block);
+    const geminiHelper = this.helperService.use(
+      HelperType.LLM,
+      GeminiLlmHelper,
     );
 
-    return recentMessages.map((m) => {
-      return {
-        role: 'sender' in m && m.sender ? `user` : `model`,
-        parts: [
-          {
-            text:
-              'text' in m.message && m.message.text
-                ? m.message.text
-                : JSON.stringify(m.message),
-          },
-        ],
-      };
-    });
-  }
-
-  async process(block: Block, context: Context, _convId: string) {
-    const ragContent = await this.contentService.textSearch(context.text);
-    const args = this.getArguments(block);
-    const client = this.getInstance(args.token);
-
     const systemInstruction = [
-      `CONTEXT: ${args.context}`,
+      `CONTEXT: ${context}`,
       `DOCUMENTS:`,
       ...ragContent.map(
         (curr, index) =>
           `\tDOCUMENT ${index + 1} \n\t\tTitle: ${curr.title} \n\t\tData: ${curr.rag}`,
       ),
       `INSTRUCTIONS:`,
-      args.instructions,
+      instructions,
     ].join('\n');
 
-    const model = client.getGenerativeModel({
-      model: args.model,
-      systemInstruction,
-      generationConfig: {
-        /* 
-        =====================================================================
-        Check the documentation for more details on the generation config 
-        https://ai.google.dev/api/generate-content#v1beta.GenerationConfig 
-        =====================================================================
-        */
-
-        // controls the randomness of the output. Use higher values for more creative responses,
-        // and lower values for more deterministic responses. Values can range from [0.0, 2.0].
-        temperature: args.temperature,
-        maxOutputTokens: args.num_ctx || 256,
-        responseMimeType: 'text/plain',
-      },
-    });
-    const history = await this.getMessagesContext(
-      context,
-      args.max_messages_ctx,
+    const history = await this.messageService.findLastMessages(
+      ctx.user,
+      max_messages_ctx,
     );
-    const chat = model.startChat({
+    const text = await geminiHelper.generateChatCompletion(
+      ctx.text,
+      model,
+      systemInstruction,
       history,
-    });
-
-    const result = await chat.sendMessage(context.text);
+      options,
+    );
 
     const envelope: StdOutgoingTextEnvelope = {
       format: OutgoingMessageFormat.text,
       message: {
-        text: result.response.text(),
+        text,
       },
     };
     return envelope;
-  }
-
-  private getInstance(token: string) {
-    if (this.generativeAI) {
-      return this.generativeAI;
-    }
-
-    try {
-      this.generativeAI = new GoogleGenerativeAI(token);
-      return this.generativeAI;
-    } catch (err) {
-      this.logger.warn('Gemini: Unable to instantiate GoogleGenerativeAI', err);
-    }
   }
 }
