@@ -3,7 +3,17 @@
   "model": "Model",
   "context": "Context",
   "instructions": "Instructions",
-  "num_ctx": "Maximum number of tokens",
   "max_messages_ctx": "Number of Messages",
-  "temperature": "Temperature"
+  "candidate_count": "Candidate Count",
+  "max_output_tokens": "Max Output Tokens",
+  "temperature": "Temperature",
+  "top_k": "Top K",
+  "top_p": "Top P",
+  "stop_sequences": "Stop Sequences",
+  "response_mime_type": "Response MIME Type",
+  "response_schema": "Response Schema",
+  "presence_penalty": "Presence Penalty",
+  "frequency_penalty": "Frequency Penalty",
+  "response_logprobs": "Response Logprobs",
+  "logprobs": "Logprobs"
 }
