@@ -1,6 +1,6 @@
 {
   "name": "hexabot-plugin-gemini",
-  "version": "2.0.1",
+  "version": "2.0.0",
   "description": "The Google Gemini Plugin for Hexabot Chatbot / Agent Builder to enable the LLM RAG Capability",
   "dependencies": {
     "hexabot-helper-gemini": "^2.0.0"
