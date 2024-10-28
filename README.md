@@ -15,8 +15,9 @@ Before setting up the Gemini Plugin, you will need to generate an API token from
 ## Installation
 Run the following command which will download and install the Gemini plugin:
 ```sh
-cd ~/projects/Hexabot
-npm install hexabot-plugin-gemini --prefix ./api
+cd ~/projects/my-chatbot
+npm install hexabot-plugin-gemini
+hexabot dev
 ```
 
 ## Configuration
