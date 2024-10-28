@@ -16,7 +16,7 @@ import {
 } from '@/chat/schemas/types/message';
 import { MessageService } from '@/chat/services/message.service';
 import { ContentService } from '@/cms/services/content.service';
-import GeminiLlmHelper from '@/extensions/helpers/hexabot-helper-gemini/index.helper';
+import GeminiLlmHelper from '@/contrib/extensions/helpers/hexabot-helper-gemini/index.helper';
 import { HelperService } from '@/helper/helper.service';
 import { HelperType } from '@/helper/types';
 import { LoggerService } from '@/logger/logger.service';
