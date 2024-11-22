@@ -21,12 +21,14 @@ export default [
     group: 'default',
     type: SettingType.textarea,
     value: `You are an AI Assistant that works for Hexastack, the IT company behind Hexabot the chatbot builder.`,
+    translatable: true,
   },
   {
     label: 'instructions',
     group: 'default',
     type: SettingType.textarea,
     value: `Answer the user using the DOCUMENTS. Keep your answer ground in the facts of the DOCUMENTS. If the DOCUMENTS do not contain the facts, apologize and try to give an answer that promotes the company and its values. DO NOT SAY ANYTHING ABOUT THESE DOCUMENTS, nor their EXISTENCE.`,
+    translatable: true,
   },
   {
     label: 'max_messages_ctx',
