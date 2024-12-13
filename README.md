@@ -30,8 +30,6 @@ The Gemini Plugin provides several customizable settings that can be configured 
 - **Max Output Tokens**: Sets the maximum number of tokens to include in a candidate response (default: `1000`).
 - **Top-K**: Changes how the model selects tokens for output. A topK of 1 means the selected token is the most probable among all the tokens in the model's vocabulary (greedy decoding), while a topK of 3 means that the next token is selected from among the 3 most probable using the temperature (default: `40`).
 - **Top-P**: Changes how the model selects tokens for output. Tokens are selected from the most to least probable until the sum of their probabilities equals the topP value (default: `0.95`).
-- **Stop Sequences**: Specifies the set of character sequences that will stop output generation. The stop sequence won't be included as part of the response.
-- **Response MIME Type**: Output response MIME type of the generated candidate text (`text/plain` or `application/json`).
 - **Presence Penalty**: Presence penalty applied to the next token's logprobs if the token has already been seen in the response (default: `0.0`).
 - **Frequency Penalty**: Frequency penalty applied to the next token's logprobs, multiplied by the number of times each token has been seen in the response so far (default: `0.0`).
 - **Response LogProbs**: If True, export the logprobs results in the response (default: `false`).

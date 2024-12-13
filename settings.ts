@@ -67,24 +67,6 @@ export default [
     value: 0.95, // Default value, range between 0.0 and 1.0
   },
   {
-    label: 'stop_sequences',
-    group: 'options',
-    type: SettingType.textarea,
-    value: '', // Default value (null or up to 5 stop sequences)
-  },
-  {
-    label: 'response_mime_type',
-    group: 'options',
-    type: SettingType.text,
-    value: 'text/plain', // Default value ('text/plain' or 'application/json')
-  },
-  {
-    label: 'response_schema',
-    group: 'options',
-    type: SettingType.text,
-    value: '', // Default value (applies only when response_mime_type is 'application/json')
-  },
-  {
     label: 'presence_penalty',
     group: 'options',
     type: SettingType.number,
