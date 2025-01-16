@@ -47,6 +47,10 @@ export class GeminiPlugin extends BaseBlockPlugin<
   }
 
   async process(block: Block, ctx: Context, _convId: string) {
+    if (!ctx.text) {
+      throw new Error('Context text is required');
+    }
+
     const ragContent = await this.contentService.textSearch(ctx.text);
     const { model, instructions, context, max_messages_ctx, ...options } =
       this.getArguments(block);
