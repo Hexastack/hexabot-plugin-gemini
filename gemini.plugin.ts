@@ -47,7 +47,9 @@ export class GeminiPlugin extends BaseBlockPlugin<
   }
 
   async process(block: Block, ctx: Context, _convId: string) {
-    const ragContent = await this.contentService.textSearch(ctx.text);
+    const ragContent = ctx.text
+      ? await this.contentService.textSearch(ctx.text)
+      : [];
     const { model, instructions, context, max_messages_ctx, ...options } =
       this.getArguments(block);
     const geminiHelper = this.helperService.use(
