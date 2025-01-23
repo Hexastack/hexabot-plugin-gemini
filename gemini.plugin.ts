@@ -72,13 +72,15 @@ export class GeminiPlugin extends BaseBlockPlugin<
       ctx.user,
       max_messages_ctx,
     );
-    const text = await geminiHelper.generateChatCompletion(
-      ctx.text,
-      model,
-      systemInstruction,
-      history,
-      options,
-    );
+    const text = ctx?.text 
+      ? await geminiHelper.generateChatCompletion(
+        ctx.text,
+        model, 
+        systemInstruction, 
+        history, 
+        options,
+        ) 
+      : "";
 
     const envelope: StdOutgoingTextEnvelope = {
       format: OutgoingMessageFormat.text,
