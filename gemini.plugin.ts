@@ -19,7 +19,6 @@ import { ContentService } from '@/cms/services/content.service';
 import GeminiLlmHelper from '@/contrib/extensions/helpers/hexabot-helper-gemini/index.helper';
 import { HelperService } from '@/helper/helper.service';
 import { HelperType } from '@/helper/types';
-import { LoggerService } from '@/logger/logger.service';
 import { BaseBlockPlugin } from '@/plugins/base-block-plugin';
 import { PluginService } from '@/plugins/plugins.service';
 import { PluginBlockTemplate } from '@/plugins/types';
@@ -34,7 +33,6 @@ export class GeminiPlugin extends BaseBlockPlugin<
 
   constructor(
     pluginService: PluginService,
-    private logger: LoggerService,
     private contentService: ContentService,
     private messageService: MessageService,
     private helperService: HelperService,
@@ -72,15 +70,15 @@ export class GeminiPlugin extends BaseBlockPlugin<
       ctx.user,
       max_messages_ctx,
     );
-    const text = ctx?.text 
+    const text = ctx?.text
       ? await geminiHelper.generateChatCompletion(
-        ctx.text,
-        model, 
-        systemInstruction, 
-        history, 
-        options,
-        ) 
-      : "";
+          ctx.text,
+          model,
+          systemInstruction,
+          history,
+          options,
+        )
+      : '';
 
     const envelope: StdOutgoingTextEnvelope = {
       format: OutgoingMessageFormat.text,
