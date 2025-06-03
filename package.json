@@ -7,7 +7,7 @@
     "release:minor": "npm version minor && git push origin main --tags"
   },
   "peerDependencies": {
-    "hexabot-helper-gemini": "^2.2.1"
+    "hexabot-helper-gemini": "^2.2.2"
   },
   "author": "Hexastack",
   "license": "AGPL-3.0-only"
